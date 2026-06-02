@@ -85,12 +85,14 @@
     "modules-left": ["group/left1", "group/left2", "group/resources", "group/left3"],
     "modules-center": ["group/center-window", "group/center-clock"],
     "modules-right": [
+        "custom/throne-tray",
         "group/tray-expander",
         "pulseaudio",
         "custom/kb-layout",
         "bluetooth",
         "network",
         "battery",
+        "group/tray-drawer",
         "custom/notification"
     ],
     "hyprland/workspaces": {
@@ -268,9 +270,25 @@
         "format": "󰇙",
         "tooltip": false
     },
+    "group/tray-drawer": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "transition-left-to-right": false,
+            "children-class": "tray-drawer-item"
+        },
+        "modules": [
+            "custom/tray-icon",
+            "tray"
+        ]
+    },
+    "custom/tray-icon": {
+        "format": "󰋁",
+        "tooltip": false
+    },
     "tray": {
-        "icon-size": 12,
-        "spacing": 4
+        "icon-size": 16,
+        "spacing": 8
     },
     "mpris": {
         "format": "{player_icon} {artist} - {title}",
@@ -285,6 +303,15 @@
             "paused": ""
         },
         "ignored-players": ["firefox", "chromium", "brave"]
+    },
+    "custom/throne-tray": {
+        "exec": "~/.config/waybar/scripts/throne-tray.sh",
+        "return-type": "json",
+        "interval": 2,
+        "format": "{}",
+        "on-click": "~/.config/waybar/scripts/throne-tray.sh show",
+        "signal": 8,
+        "tooltip": true
     },
     "custom/kb-layout": {
         "exec": "~/.config/hypr/scripts/keyboard-layout.sh",

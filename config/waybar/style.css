@@ -303,7 +303,8 @@ tooltip label {
 }
 
 /* System Tray */
-#group-tray-expander {
+#group-tray-expander,
+#group-tray-drawer {
   border-radius: 24px;
   background-color: transparent;
   margin-right: 0px;
@@ -311,10 +312,20 @@ tooltip label {
   color: @on_surface_variant;
 }
 
+.tray-group-item,
+.tray-drawer-item {
+  min-width: 0;
+  margin: 0;
+  padding: 0 2px;
+}
+
+#custom-tray-icon {
+  padding: 0 12px;
+}
+
 #tray {
-  background-color: transparent;
+  padding: 0 6px;
   border-radius: 24px;
-  margin: 0 2px;
 }
 
 #tray > .passive {
@@ -323,12 +334,6 @@ tooltip label {
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-}
-
-.tray-group-item {
-  min-width: 0;
-  margin: 0;
-  padding: 0 2px;
 }
 
 /* Bluetooth - Secondary */
@@ -414,6 +419,21 @@ tooltip label {
 #mpris.playing {
   color: @secondary;
   border-color: alpha(@secondary, 0.6);
+}
+
+/* Throne Tray */
+#custom-throne-tray {
+  padding: 0 2px;
+  color: @on_surface_variant;
+  font-size: 12px;
+}
+
+#custom-throne-tray.hidden {
+  color: @primary;
+}
+
+#custom-throne-tray.hidden:hover {
+  color: @on_primary_container;
 }
 
 /* Notification */
