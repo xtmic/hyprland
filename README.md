@@ -6,8 +6,27 @@
 
 ## 🚀 Быстрая установка (одной командой)
 
+Сначала установи `curl` и `git` (в чистом Arch их нет):
+```bash
+sudo pacman -S curl git
+```
+
+Затем запусти:
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/xtmic/hyprland/main/setup.sh)
+```
+
+Без curl тоже вариант — скачай через `wget` если он есть:
+```bash
+wget -qO- https://raw.githubusercontent.com/xtmic/hyprland/main/setup.sh | bash
+```
+
+Или классически — руками через git:
+```bash
+sudo pacman -S git
+git clone git@github.com:xtmic/hyprland.git ~/hyprland-setup
+cd ~/hyprland-setup
+./setup.sh
 ```
 
 Скрипт сам:
