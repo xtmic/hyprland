@@ -58,8 +58,13 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 if [ "$CURL_MODE" = true ]; then
   info "Running from curl pipe — cloning repo to $CURL_TMPDIR ..."
   if [ "$DRY_RUN" = false ]; then
+    # git might not be installed on fresh Arch
+    if ! command -v git &>/dev/null; then
+      info "git not found — installing via pacman ..."
+      sudo pacman -S --needed git
+    fi
     git clone --depth=1 https://github.com/xtmic/hyprland.git "$CURL_TMPDIR" || \
-      die "Failed to clone repo"
+      die "Failed to clone repo. Try: sudo pacman -S git && then re-run"
     REPO_DIR="$CURL_TMPDIR"
     ok "Cloned to $REPO_DIR"
   else
@@ -97,25 +102,54 @@ fi
 ok "OS: $NAME"
 
 # ===========================================================================
-#  2. Detect AUR helper
+#  2. Prepare system for Arch (fresh install handling)
 # ===========================================================================
-AUR_HELPER=""
+if [ "$IS_ARCH" = true ] && [ "$DRY_RUN" = false ]; then
+  # ---- 2a. Install base-devel (needed for AUR builds) ----
+  if ! pacman -Qi base-devel &>/dev/null; then
+    info "Installing base-devel (needed for AUR packages) ..."
+    sudo pacman -S --needed base-devel
+    ok "base-devel installed"
+  fi
 
-if [ "$IS_ARCH" = true ] && [ "$NO_AUR" = false ]; then
-  for helper in yay paru; do
+  # ---- 2b. Enable multilib if disabled ----
+  if ! pacman -Si steam &>/dev/null 2>&1; then
+    info "Enabling multilib repository ..."
+    sudo sed -i '/^#\[multilib\]/,/^#Include/s/^#//' /etc/pacman.conf 2>/dev/null || true
+    sudo pacman -Sy
+    ok "multilib enabled"
+  fi
+
+  # ---- 2c. Install/update keyring ----
+  sudo pacman -S --needed archlinux-keyring 2>/dev/null || true
+  sudo pacman -Sy
+
+  # ---- 2d. Detect or install AUR helper ----
+  AUR_HELPER=""
+  for helper in paru yay; do
     if command -v "$helper" &>/dev/null; then
       AUR_HELPER="$helper"
       break
     fi
   done
 
-  if [ -z "$AUR_HELPER" ]; then
-    warn "No AUR helper found (yay/paru). AUR packages will be skipped."
-    warn "Install one manually:"
-    warn "  git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si"
-    NO_AUR=true
-  else
+  if [ -z "$AUR_HELPER" ] && [ "$NO_AUR" = false ]; then
+    info "No AUR helper found. Installing paru ..."
+    TMPDIR=$(mktemp -d)
+    git clone --depth=1 https://aur.archlinux.org/paru.git "$TMPDIR/paru" 2>/dev/null || \
+      die "Failed to clone paru AUR. Check your internet."
+    (cd "$TMPDIR/paru" && makepkg -si --noconfirm) || \
+      die "Failed to build paru. Check: sudo pacman -S --needed base-devel"
+    rm -rf "$TMPDIR"
+    AUR_HELPER="paru"
+    ok "paru installed"
+  fi
+
+  if [ -n "$AUR_HELPER" ]; then
     ok "AUR helper: $AUR_HELPER"
+  else
+    warn "No AUR helper available. AUR packages will be skipped."
+    NO_AUR=true
   fi
 fi
 

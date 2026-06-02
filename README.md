@@ -6,24 +6,22 @@
 
 ## 🚀 Быстрая установка (одной командой)
 
-Сначала установи `curl` и `git` (в чистом Arch их нет):
-```bash
-sudo pacman -S curl git
-```
+На чистом Arch нет ничего. Скрипт сам установит всё — `base-devel`, multilib, `paru` (AUR-хелпер) и все пакеты:
 
-Затем запусти:
 ```bash
+sudo pacman -S curl
 bash <(curl -fsSL https://raw.githubusercontent.com/xtmic/hyprland/main/setup.sh)
 ```
 
-Без curl тоже вариант — скачай через `wget` если он есть:
+Если `curl` тоже нет (минимальная установка):
 ```bash
+sudo pacman -S --needed wget
 wget -qO- https://raw.githubusercontent.com/xtmic/hyprland/main/setup.sh | bash
 ```
 
-Или классически — руками через git:
+Или вручную через git:
 ```bash
-sudo pacman -S git
+sudo pacman -S --needed git
 git clone git@github.com:xtmic/hyprland.git ~/hyprland-setup
 cd ~/hyprland-setup
 ./setup.sh
