@@ -29,13 +29,20 @@ cd ~/hyprland-setup
 
 Скрипт сам:
 - Определит, что у тебя Arch-based (CachyOS, EndeavourOS и т.д.)
-- Установит все пакеты (pacman + AUR через yay/paru)
+- Установит `base-devel`, включит multilib, установит `paru` из AUR
+- Установит все пакеты (pacman + AUR): Hyprland, Waybar, Rofi, Kitty, SwayNC, Matugen и т.д.
+- **Звук**: PipeWire + WirePlumber + pipewire-pulse
+- **Bluetooth**: bluez + bluez-utils
+- **NVIDIA**: определит GPU и установит nvidia-dkms
+- **Сеть**: включит NetworkManager
+- **Polkit**: polkit-gnome (диалоги авторизации)
 - Сделает бэкап текущих конфигов
 - Скопирует все настройки
 - Установит шрифт JetBrains Mono Nerd Font
 - Настроит Matugen шаблоны
 - Применит обои и сгенерирует тему
 - Проверит что всё встало
+- **Запустит Hyprland** (спросит YES)
 
 Флаги:
 - `--dry-run` — показать что будет сделано без реальных изменений
