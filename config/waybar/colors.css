@@ -1,0 +1,52 @@
+/*
+ * Waybar Colors - Full Material Design 3 Palette
+ * Matugen Template
+ * Place this in ~/.config/matugen/templates/colors.css
+ */
+
+/* Core Colors */
+@define-color window_bg_color     #2b292d;
+@define-color window_fg_color     #f8f3f6;
+@define-color primary             #cccadb;
+@define-color on_primary          #333346;
+@define-color primary_container   #807f90;
+@define-color on_primary_container #ffffff;
+
+@define-color secondary           #cdcad5;
+@define-color on_secondary        #343441;
+@define-color secondary_container #82808b;
+@define-color on_secondary_container #ffffff;
+
+@define-color tertiary            #cac8e2;
+@define-color on_tertiary         #31314d;
+@define-color tertiary_container  #7f7e96;
+@define-color on_tertiary_container #ffffff;
+
+@define-color error               #ffb8af;
+@define-color on_error            #8e0003;
+@define-color error_container     #f83b34;
+@define-color on_error_container #ffffff;
+
+/* Surface Colors */
+@define-color surface             #2b292d;
+@define-color on_surface          #f8f3f6;
+@define-color on_surface_variant  #cecacc;
+@define-color surface_variant     #59585a;
+@define-color surface_bright      #545154;
+@define-color surface_dim         #2b292d;
+@define-color surface_container   #3a393c;
+@define-color surface_container_low #333135;
+@define-color surface_container_high #444344;
+@define-color surface_container_highest #4e4d4e;
+
+/* Utility Colors */
+@define-color outline             #aaa8aa;
+@define-color outline_variant     #838182;
+@define-color shadow              #000000;
+@define-color scrim               #000000;
+@define-color inverse_surface      #e7e3e5;
+@define-color inverse_on_surface   #454447;
+@define-color inverse_primary      #615f71;
+
+/* Accent / Alias */
+@define-color accent_color        #cccadb;
